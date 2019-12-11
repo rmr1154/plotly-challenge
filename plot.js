@@ -92,6 +92,59 @@ function buildPlots(sampleId) {
     // render the plot in our div
     Plotly.newPlot('bubble-plot', bubble_data, bubble_layout);
 
+
+
+    // build the bonus guage chart
+    // get the metadata.wfreq for the selected SubjectId
+    var wash = metadata.wfreq;
+    console.log(wash);
+
+    var data = [
+      {
+        type: "indicator",
+        mode: "gauge",//+number+delta",
+        value: wash,
+        title: { text: "Belly Button Washing Frequency<br>Scrubs per Week"//, 
+                 //font: { //size: 24,
+                 //color: "black" }
+                },
+        //delta: { reference: 9, increasing: { color: "blue" } },
+        gauge: {
+          axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
+          //bar: { color: "darkblue" },
+          //bgcolor: "white",
+          //borderwidth: 2,
+          //bordercolor: "gray",
+          steps: [
+            { range: [0, 1], color: "rgba(253, 252, 252, .5)", text:"0-1"},
+            { range: [1, 2], color: "rgba(224, 237, 225, .5" },
+            { range: [2, 3], color: "rgba(195, 223, 199, .5" },
+            { range: [3, 4], color: "rgba(166, 209, 173, .5" },
+            { range: [4, 5], color: "rgba(137, 195, 147, .5" },
+            { range: [5, 6], color: "rgba(108, 180, 120, .5" },
+            { range: [6, 7], color: "rgba(79, 166, 94, .5)" },
+            { range: [7, 8], color: "rgba(50, 152, 68, .5)" },
+            { range: [8, 9], color: "rgba(21, 138, 42, .5)" }
+          ],
+          //threshold: {
+            //line: { color: "red", width: 4 },
+            //thickness: 0.75,
+            //value: 490
+          //}
+        }
+      }
+    ];
+    
+    var layout = {
+      width: 500,
+      height: 400,
+      margin: { t: 25, r: 25, l: 25, b: 25 },
+      //paper_bgcolor: "lavender",
+      //font: { color: "darkblue", family: "Arial" }
+    };
+    
+    Plotly.newPlot('gauge', data, layout);
+
   });
 }
 
